@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --terra: #C4714A;
+    --terra-light: #E8C4A8;
+    --terra-dark: #8B4A2A;
+    --sand: #F5EDD8;
+    --sand-dark: #E8D9B8;
+    --blue: #1B4B6B;
+    --cream: #FAF6EE;
+    --gold: #C9A84C;
+    --td: #2A1F14;
+    --tm: #5C4A35;
+    --tl: #8C7A65;
+  }
+
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--td); overflow-x: hidden; }
+
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 3rem; background: var(--cream);
+    border-bottom: 1px solid var(--sand-dark); position: sticky; top: 0; z-index: 100;
+  }
+
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; letter-spacing: .05em; }
+  .logo span { color: var(--terra); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: .75rem; letter-spacing: .15em; text-transform: uppercase; color: var(--tm); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terra); }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; overflow: hidden; }
+
+  .hero-l {
+    background: var(--blue); padding: 5rem 3.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-l::before { content: ''; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border-radius: 50%; border: 1px solid rgba(201,168,76,.2); }
+  .hero-l::after { content: ''; position: absolute; bottom: -120px; left: -60px; width: 400px; height: 400px; border-radius: 50%; border: 1px solid rgba(201,168,76,.15); }
+
+  .eyebrow { font-size: .7rem; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; position: relative; z-index: 1; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem,5vw,4.2rem); font-weight: 300; line-height: 1.1; color: var(--sand); margin-bottom: 2rem; position: relative; z-index: 1; }
+  .hero-title em { font-style: italic; color: var(--terra-light); }
+  .hero-desc { font-size: .9rem; line-height: 1.8; color: rgba(245,237,216,.7); max-width: 380px; margin-bottom: 2.5rem; font-weight: 300; position: relative; z-index: 1; }
+  .cta { display: inline-flex; align-items: center; gap: .75rem; background: var(--terra); color: var(--cream); padding: .85rem 2rem; font-size: .75rem; letter-spacing: .15em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'Jost', sans-serif; text-decoration: none; position: relative; z-index: 1; transition: background 0.2s; }
+  .cta:hover { background: var(--terra-dark); }
+
+  .hero-r { background: var(--sand); display: grid; grid-template-rows: 1fr 1fr; overflow: hidden; }
+  .hero-card { padding: 2.5rem; border-bottom: 1px solid var(--sand-dark); display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden; }
+  .hero-card:last-child { border-bottom: none; }
+  .card-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 8rem; font-weight: 300; opacity: .07; color: var(--terra); pointer-events: none; }
+  .card-tag { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--terra); margin-bottom: .5rem; }
+  .card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--td); line-height: 1.2; }
+  .card-sub { font-size: .8rem; color: var(--tl); margin-top: .4rem; }
+
+  .section { padding: 6rem 3rem; }
+  .slabel { font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; color: var(--terra); margin-bottom: 1rem; }
+  .stitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,4vw,3rem); font-weight: 300; line-height: 1.2; color: var(--td); max-width: 500px; margin-bottom: 3.5rem; }
+
+  .svc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .svc { background: white; border: 1px solid var(--sand-dark); padding: 2rem; position: relative; overflow: hidden; }
+  .svc::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--terra); transform: scaleY(0); transform-origin: bottom; transition: transform .3s; }
+  .svc:hover::before { transform: scaleY(1); }
+  .svc-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--sand-dark); line-height: 1; margin-bottom: 1rem; }
+  .svc-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 500; color: var(--td); margin-bottom: .75rem; }
+  .svc-desc { font-size: .82rem; line-height: 1.7; color: var(--tm); font-weight: 300; }
+  .svc-price { margin-top: 1.5rem; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--terra); font-weight: 500; }
+
+  .work-section { background: var(--blue); padding: 6rem 3rem; }
+  .work-section .slabel { color: var(--gold); }
+  .work-section .stitle { color: var(--sand); }
+  .work-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-top: 3rem; }
+  .work-item { background: rgba(255,255,255,.05); border: 1px solid rgba(245,237,216,.15); padding: 2rem; cursor: pointer; transition: background .2s, border-color .2s; }
+  .work-item:hover { background: rgba(255,255,255,.09); border-color: rgba(201,168,76,.4); }
+  .swatch { height: 120px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; font-weight: 300; }
+  .sw-zoe { background: linear-gradient(135deg,#F5EDD8,#E8C4A8,#D4A882); color: #8B4A2A; }
+  .sw-ranch { background: linear-gradient(135deg,#F2EDE4,#C8B89A,#8B7355); color: #4A3520; }
+  .sw-alluring { background: linear-gradient(135deg,#1A0A2E,#4A1570,#7B2D8B); color: #E8C4FF; }
+  .sw-amber { background: linear-gradient(135deg,#F5EDD8,#C8A870,#8B6535); color: #4A3520; }
+  .work-tag { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
+  .work-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--sand); margin-bottom: .5rem; }
+  .work-detail { font-size: .8rem; color: rgba(245,237,216,.5); font-weight: 300; }
+
+  .about-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 60vh; }
+  .about-l { background: var(--terra); padding: 5rem 3.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .about-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 300; font-style: italic; line-height: 1.4; color: var(--cream); margin-bottom: 2rem; }
+  .about-attr { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(250,246,238,.6); }
+  .about-r { background: var(--cream); padding: 5rem 3.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .about-body { font-size: .9rem; line-height: 1.9; color: var(--tm); font-weight: 300; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 3rem; border-top: 1px solid var(--sand-dark); padding-top: 2rem; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--terra); line-height: 1; }
+  .stat-label { font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--tl); margin-top: .25rem; }
+
+  .contact-section { background: var(--sand); padding: 6rem 3rem; text-align: center; border-top: 1px solid var(--sand-dark); }
+  .contact-section .slabel { text-align: center; }
+  .contact-section .stitle { text-align: center; margin: 0 auto 1.5rem; max-width: 600px; }
+  .contact-sub { font-size: .9rem; color: var(--tl); margin-bottom: 3rem; font-weight: 300; }
+  .contact-btns { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+  .cbtn { display: inline-flex; align-items: center; gap: .65rem; padding: 1rem 2rem; font-family: 'Jost', sans-serif; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; cursor: pointer; border: none; transition: all .2s; }
+  .cbtn svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .cbtn-wa { background: #25D366; color: white; }
+  .cbtn-wa:hover { background: #1aab52; }
+  .cbtn-email { background: transparent; color: var(--blue); border: 1px solid var(--blue); }
+  .cbtn-email:hover { background: var(--blue); color: var(--cream); }
+
+  footer { background: var(--td); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+  .foot-logo { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--sand); letter-spacing: .05em; }
+  .foot-copy { font-size: .7rem; color: rgba(245,237,216,.4); letter-spacing: .1em; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-l > * { animation: fadeUp .6s ease both; }
+  .eyebrow { animation-delay: .1s; }
+  .hero-title { animation-delay: .25s; }
+  .hero-desc { animation-delay: .4s; }
+  .cta { animation-delay: .55s; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-l { padding: 3rem 1.5rem; }
+    .hero-r { display: none; }
+    .section { padding: 4rem 1.5rem; }
+    .svc-grid { grid-template-columns: 1fr; }
+    .work-section { padding: 4rem 1.5rem; }
+    .work-grid { grid-template-columns: 1fr; }
+    .about-section { grid-template-columns: 1fr; }
+    .about-l { padding: 3rem 1.5rem; }
+    .about-r { padding: 3rem 1.5rem; }
+    .contact-section { padding: 4rem 1.5rem; }
+    .contact-btns { flex-direction: column; align-items: center; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Built by <span>Jewel</span></div>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-l">
+    <p class="eyebrow">Web Design & Development — Barcelona</p>
+    <h1 class="hero-title">Websites that make your business <em>unforgettable</em></h1>
+    <p class="hero-desc">Custom-coded websites and AI-powered promotional videos for Barcelona's independent businesses. Beautiful, fast, and built to convert from €500.</p>
+    <a href="#contact" class="cta">Get in touch →</a>
+  </div>
+  <div class="hero-r">
+    <div class="hero-card">
+      <div class="card-bg">01</div>
+      <p class="card-tag">Custom websites</p>
+      <h2 class="card-title">Hand-coded, not templated</h2>
+      <p class="card-sub">Every site built from scratch for your brand</p>
+    </div>
+    <div class="hero-card">
+      <div class="card-bg">02</div>
+      <p class="card-tag">AI video</p>
+      <h2 class="card-title">Promotional videos with Sora AI</h2>
+      <p class="card-sub">Scroll-stopping content for social and web</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <p class="slabel">What I offer</p>
+  <h2 class="stitle">Everything your business needs to show up online</h2>
+  <div class="svc-grid">
+    <div class="svc">
+      <div class="svc-num">01</div>
+      <h3 class="svc-name">Starter Package</h3>
+      <p class="svc-desc">A fully custom-coded website paired with an AI promotional video. Perfect for cafés, salons and boutiques ready to establish their online presence.</p>
+      <p class="svc-price">From €500</p>
+    </div>
+    <div class="svc">
+      <div class="svc-num">02</div>
+      <h3 class="svc-name">Website Only</h3>
+      <p class="svc-desc">A fully custom responsive website coded by hand. No templates, no page builders. Fast, clean and uniquely yours.</p>
+      <p class="svc-price">Custom quote</p>
+    </div>
+    <div class="svc">
+      <div class="svc-num">03</div>
+      <h3 class="svc-name">AI Promo Video</h3>
+      <p class="svc-desc">Cinematic AI-generated promotional videos using Sora. Stand out on Instagram, Google and your website.</p>
+      <p class="svc-price">Custom quote</p>
+    </div>
+  </div>
+</section>
+
+<section class="work-section" id="work">
+  <p class="slabel">Selected work</p>
+  <h2 class="stitle">Recent projects</h2>
+  <div class="work-grid">
+    <a class="work-item" href="https://jewelsinkinson-cmd.github.io/zoemia.beauty/" target="_blank" style="text-decoration:none;display:block;">
+      <div class="swatch sw-zoe">Zoe Mia Beauty</div>
+      <p class="work-tag">Hair salon · California</p>
+      <h3 class="work-title">Zoe Mia Beauty</h3>
+      <p class="work-detail">Warm champagne palette, Playfair Display, asymmetric gallery</p>
+    </a>
+    <a class="work-item" href="https://jewelsinkinson-cmd.github.io/cheyenne/" target="_blank" style="text-decoration:none;display:block;">
+      <div class="swatch sw-ranch">Cheyenne Ranch</div>
+      <p class="work-tag">Horse ranch · Texas</p>
+      <h3 class="work-title">Cheyenne Horse Ranch</h3>
+      <p class="work-detail">Earthy cream and bark brown, custom domain, equestrian editorial</p>
+    </a>
+    <a class="work-item" href="https://jewelsinkinson-cmd.github.io/alluring.treasures/" target="_blank" style="text-decoration:none;display:block;">
+      <div class="swatch sw-alluring">Alluring Treasures</div>
+      <p class="work-tag">Festival boutique</p>
+      <h3 class="work-title">Alluring Treasures</h3>
+      <p class="work-detail">Dark festival aesthetic, rainbow gradients, Bebas Neue</p>
+    </a>
+    <a class="work-item" href="https://jewelsinkinson-cmd.github.io/amberlynnae-horsemanship/" target="_blank" style="text-decoration:none;display:block;">
+      <div class="swatch sw-amber">Amber Lynnae</div>
+      <p class="work-tag">Horse trainer · Texas</p>
+      <h3 class="work-title">Amber Lynnae Horsemanship</h3>
+      <p class="work-detail">Texas earthy tones, GitHub Pages, organic layout</p>
+    </a>
+  </div>
+</section>
+
+<section class="about-section" id="about">
+  <div class="about-l">
+    <p class="about-quote">"I build websites the way Barcelona businesses deserve — with craft, care, and character."</p>
+    <p class="about-attr">— Jewel, founder of Built by Jewel</p>
+  </div>
+  <div class="about-r">
+    <p class="slabel">About</p>
+    <p class="about-body">I'm Jewel — a web designer and developer based in El Raval, Barcelona. I work with independent businesses who want a real online presence without the agency price tag. Every project is custom-coded, personally delivered, and built to last.</p>
+    <p class="about-body">I combine hand-written code with AI-powered video production to give small businesses a complete digital presence that is fast, beautiful and uniquely theirs.</p>
+    <div class="stats">
+      <div>
+        <div class="stat-num">€500</div>
+        <div class="stat-label">Starting price</div>
+      </div>
+      <div>
+        <div class="stat-num">BCN</div>
+        <div class="stat-label">Based in Raval</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <p class="slabel">Get in touch</p>
+  <h2 class="stitle">Ready to build something beautiful?</h2>
+  <p class="contact-sub">Based in Barcelona · Working with businesses worldwide</p>
+  <div class="contact-btns">
+    <a class="cbtn cbtn-wa" href="https://wa.me/34631265848" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a class="cbtn cbtn-email" href="mailto:builtbyjewel@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+      builtbyjewel@gmail.com
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-logo">Built by Jewel</div>
+  <div class="foot-copy">© 2026 · Barcelona</div>
+</footer>
+
+</body>
+</html>
